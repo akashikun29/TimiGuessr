@@ -8,6 +8,20 @@ import ResultScreen from './components/ResultScreen.jsx'
 
 const TOTAL_ROUNDS = 5
 
+// Proximity-gated learning: the closer the guess, the more info unlocks.
+// Levels: 2 = full info (close), 1 = partial (medium), 0 = minimal (far/timeout).
+// Thresholds follow the scoring decay 5000·e^(-d/1000):
+//   ≥ 3000 pts ≈ up to ~450 m → full, ≥ 750 pts ≈ up to ~2.6 km → partial.
+const FULL_INFO_PTS = 3000
+const SOME_INFO_PTS = 750
+
+function infoLevel(points, guess) {
+  if (!guess) return 0 // timed out → minimal
+  if (points >= FULL_INFO_PTS) return 2
+  if (points >= SOME_INFO_PTS) return 1
+  return 0
+}
+
 // B2 — Fisher–Yates shuffle, take the first N spots.
 function pickRounds(spots) {
   const arr = [...spots]
@@ -50,7 +64,10 @@ export default function App() {
         ...prev,
         screen: 'reveal',
         totalScore: prev.totalScore + points,
-        guesses: [...prev.guesses, { spot, guess, points }],
+        guesses: [
+          ...prev.guesses,
+          { spot, guess, points, infoLevel: infoLevel(points, guess) },
+        ],
       }
     })
   }
@@ -85,6 +102,7 @@ export default function App() {
           spot={last.spot}
           guess={last.guess}
           points={last.points}
+          infoLevel={last.infoLevel}
           totalScore={state.totalScore}
           isLastRound={state.roundIndex === TOTAL_ROUNDS - 1}
           onNext={nextRound}

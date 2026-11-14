@@ -33,6 +33,19 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
         ))}
       </ol>
 
+      {/* Full tour recap: every fact, unlocked regardless of guess quality. */}
+      <h4>🏛️ Your tour of Timișoara</h4>
+      {guesses.map((g, i) => (
+        <div key={i} style={{ marginBottom: '1rem' }}>
+          <strong>{g.spot.name}</strong> <em>({g.spot.neighborhood})</em>
+          <p>💡 {g.spot.fact}</p>
+          <img src={g.spot.photo} alt={g.spot.name} style={{ maxWidth: '300px' }} />
+        </div>
+      ))}
+      <p style={{ fontSize: '0.8em', fontStyle: 'italic' }}>
+        {[...new Set(guesses.map((g) => g.spot.attribution))].join(' · ')}
+      </p>
+
       {!saved ? (
         <form onSubmit={handleSave}>
           <input
