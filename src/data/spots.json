@@ -1,0 +1,340 @@
+[
+  {
+    "id": 1,
+    "name": "Union Square (Piața Unirii)",
+    "lat": 45.75760945307555,
+    "lng": 21.22901515676035,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/2/23/Piata_Unirii_Timisoara_20180817_203847_HDR.jpg",
+    "attribution": "Photo: Korinna — CC BY-SA 4.0",
+    "facts": [
+      "Piața Unirii is famous for its beautiful Baroque architecture and colorful buildings, making it one of the most picturesque places in Timișoara.",
+      "It is home to the impressive Roman Catholic Dome, built in the 18th century, and the Serbian Orthodox Cathedral, reflecting the city's multicultural heritage.",
+      "The square received its current name in 1919, when Romanian troops entered Timișoara, marking an important moment in the city's history."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 2,
+    "name": "Victory Square (Piața Victoriei)",
+    "lat": 45.75381400465122,
+    "lng": 21.225737254911326,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Pia%C8%9Ba_Victoriei_Timi%C8%99oara.jpg",
+    "attribution": "Photo: Marius Catalin Boldeanu — CC BY-SA 4.0",
+    "facts": [
+      "Piața Victoriei was one of the main places where people gathered to protest against the communist regime in December 1989.",
+      "At one end of the square stands the Romanian National Opera, while at the other end is the impressive Orthodox Metropolitan Cathedral, built between 1936 and 1940."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 3,
+    "name": "Liberty Square (Piața Libertății)",
+    "lat": 45.75570708572165,
+    "lng": 21.22783231258266,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Pia%C8%9Ba_Libert%C4%83%C8%9Bii_Timi%C8%99oara.jpg",
+    "attribution": "Photo: Marius Catalin Boldeanu — CC BY-SA 4.0",
+    "facts": [
+      "In the 18th century, the square was used by Habsburg troops for military gatherings and parades.",
+      "It was also known as Parade Square and Arms Square.",
+      "The square received the name Liberty Square for the first time in 1848, during the Hungarian Revolution.",
+      "In its center, you can also admire a beautiful Baroque monument dedicated to the Virgin Mary and Saint John of Nepomuk, created in 1756."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 4,
+    "name": "Maria Theresia Bastion (Bastionul „Maria Theresia”)",
+    "lat": 45.75743063744872,
+    "lng": 21.233983254912218,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Bastion_Theresia_corp_A%2C_B%2C_C%2C_E.jpg",
+    "attribution": "Photo: Turbojet — CC BY-SA 4.0",
+    "facts": [
+      "Built between 1732 and 1734, it was originally used as a military food storage facility, holding supplies such as flour and salt.",
+      "Out of the original nine bastions of the Habsburg fortress, it is the only one that survived almost intact.",
+      "Today, it hosts cultural exhibitions, restaurants and events."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  },
+  {
+    "id": 5,
+    "name": "Metropolitan Cathedral (Catedrala Mitropolitană)",
+    "lat": 45.75087296663025,
+    "lng": 21.22440605860908,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/0/06/Catedrala_Mitropolitan%C4%83_%E2%80%9ESfin%C8%9Bii_Trei_Ierarhi%E2%80%9D.jpg",
+    "attribution": "Photo: Choinowski — CC BY-SA 4.0",
+    "facts": [
+      "The cathedral was completed in 1940 and has 11 towers, including its central tower, which reaches approximately 83 metres in height.",
+      "The area around the cathedral became one of the main gathering points for protesters during the Romanian Revolution against communism in December 1989."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 6,
+    "name": "Timișoara National Museum of Art (Muzeul Național de Artă din Timișoara)",
+    "lat": 45.757582564480806,
+    "lng": 21.2292947813043,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Baroque_Palace%2C_Timi%C8%99oara%2C_August_2022.jpg",
+    "attribution": "Photo: Vacant0 — CC BY-SA 4.0",
+    "facts": [
+      "The museum is housed in the impressive Baroque Palace, originally built in the 18th century and later renovated.",
+      "The building is one of the most important architectural landmarks in the city.",
+      "The museum features Romanian and European art, including paintings, decorative arts and works by renowned artists such as Corneliu Baba."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  },
+  {
+    "id": 7,
+    "name": "Trajan Square (Piața Traian)",
+    "lat": 45.75784335526926,
+    "lng": 21.249955794839813,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/8/81/Pia%C8%9Ba_Traian%2C_Timi%C8%99oara_%282023%29_-_img_06.jpg",
+    "attribution": "Photo: Chainwit. — CC BY 4.0",
+    "facts": [
+      "Piața Traian was designed in the 18th century as the central square of the Fabric neighborhood, an area that developed as an important commercial and industrial center.",
+      "The square features beautiful buildings in Baroque and Secession styles, including the Millennium Catholic Church, built in 1896, one of the area's most recognizable landmarks."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 2
+  },
+  {
+    "id": 8,
+    "name": "Millennium Catholic Church (Biserica Millennium)",
+    "lat": 45.7568163080267,
+    "lng": 21.247734867449946,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/0/09/Biserica_Romano-catolic%C4%83_Millenium%2C_Timi%C8%99oara_%282023%29_-_img_02.jpg",
+    "attribution": "Photo: Chainwit. — CC BY 4.0",
+    "facts": [
+      "The church was founded in 1896, when its foundation stone was laid on October 4.",
+      "It was consecrated on October 13, 1901.",
+      "Designed by architect Lajos Ybl, the church was built in Neo-Romanesque style and features two impressive towers and elaborate decorative elements."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 2
+  },
+  {
+    "id": 9,
+    "name": "Neptune Palace (Palatul Neptun)",
+    "lat": 45.756749538754235,
+    "lng": 21.24192738374784,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Timi%C8%99oara_-_Palatul_Neptun_%2830952906788%29.jpg",
+    "attribution": "Photo: Fred Romero — CC BY 2.0",
+    "facts": [
+      "Built between 1912 and 1914, the building was initially known as Hungária Fürdő.",
+      "It housed a large public bath and an indoor swimming pool, which were important facilities for the local community.",
+      "Designed by architect László Székely, the palace is famous for its Hungarian Secession style and its impressive decorative façade."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 3
+  },
+  {
+    "id": 10,
+    "name": "Fabric Synagogue (Sinagoga din Fabric)",
+    "lat": 45.756434541072096,
+    "lng": 21.24548539724064,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/9/92/Sinagoga_din_Fabric_Timi%C8%99oara_%282023%29_-_IMG_01.jpg",
+    "attribution": "Photo: Chainwit. — CC BY-SA 4.0",
+    "facts": [
+      "The synagogue was designed by architect Lipót Baumhorn and constructed between 1897 and 1899.",
+      "Its architecture combines eclectic historicist elements with Neo-Moorish influences.",
+      "It served as an important religious and cultural center for the Jewish community in Fabric."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 3
+  },
+  {
+    "id": 11,
+    "name": "Roman's Square (Piața Romanilor)",
+    "lat": 45.757289295793946,
+    "lng": 21.247523753062893,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Timisoara%2C_Piata_Romanilor_12.jpg",
+    "attribution": "Photo: Turbojet — CC BY-SA 4.0",
+    "facts": [
+      "Piața Romanilor is one of the historic squares of the Fabric district, developing as an important urban space connecting the historic neighborhood with the rest of the city.",
+      "The square is home to the Millennium Catholic Church, whose construction began in 1896 and which was consecrated in 1901.",
+      "Designed by architect Lajos Ybl, the church is built in Neo-Romanesque style."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 2
+  },
+  {
+    "id": 12,
+    "name": "Saint Mary's Square (Piața Sfânta Maria)",
+    "lat": 45.74875096422616,
+    "lng": 21.219041983747083,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/6/63/Pia%C8%9Ba_Sf%C3%A2nta_Maria%2C_Timi%C8%99oara_%282023%29.jpg",
+    "attribution": "Photo: Chainwit. — CC BY 4.0",
+    "facts": [
+      "The nearby Reformed Church on Timotei Cipariu Street was the starting point of the protests on December 16, 1989, which marked the beginning of the Romanian Revolution in Timișoara.",
+      "In the center of the square stands the statue of the Virgin Mary, inaugurated in 1906.",
+      "According to local tradition, it marks the place where Gheorghe Doja, leader of the 1514 peasant uprising, was executed."
+    ],
+    "neighborhood": "Iosefin",
+    "difficulty": 2
+  },
+  {
+    "id": 13,
+    "name": "Water Palace (Palatul Apelor)",
+    "lat": 45.74937124281111,
+    "lng": 21.219329908885854,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/7/73/Timisoara%2C_Palatul_Apelor_2018_%282%29.jpg",
+    "attribution": "Photo: Turbojet — CC BY-SA 4.0",
+    "facts": [
+      "Completed in 1901, the building originally served as the headquarters of the Timiș–Bega Water Management Company, which was responsible for managing waterways and water-related works in the region.",
+      "Designed by architect Lipót Baumhorn, the palace features Art Nouveau (Secession) elements, including decorative fish, seashells, seahorses and aquatic plants."
+    ],
+    "neighborhood": "Iosefin",
+    "difficulty": 3
+  },
+  {
+    "id": 14,
+    "name": "Iosefin Water Tower (Turnul de apă din Iosefin)",
+    "lat": 45.745514290316045,
+    "lng": 21.20147498004976,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Iosefin_Water_Tower_2026.jpg",
+    "attribution": "Photo: Irimia florin — CC BY-SA 4.0",
+    "facts": [
+      "Completed in 1914, the tower was part of Timișoara's water distribution system.",
+      "Standing 52 metres tall, it contained two reservoirs: one for drinking water (500 m³) and another for industrial water (250 m³), taken directly from the Bega River."
+    ],
+    "neighborhood": "Iosefin",
+    "difficulty": 3
+  },
+  {
+    "id": 15,
+    "name": "Timișoara North Railway Station (Gara de Nord)",
+    "lat": 45.750467348874295,
+    "lng": 21.207235827924848,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Gara_de_Nord_-_panoramio_%283%29.jpg",
+    "attribution": "Photo: Mister No — CC BY 3.0",
+    "facts": [
+      "The first railway line connecting Timișoara to the European railway network opened on November 15, 1857.",
+      "The current station's original monumental building was inaugurated in 1897 and designed in Neoclassical style by Hungarian architect Ferenc Pfaff."
+    ],
+    "neighborhood": "Iosefin",
+    "difficulty": 2
+  },
+  {
+    "id": 16,
+    "name": "Decebal Bridge (Podul Decebal)",
+    "lat": 45.756169355973455,
+    "lng": 21.240757908885705,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Podul_Decebal%2C_Timi%C8%99oara_%282023%29_-_img_03.jpg",
+    "attribution": "Photo: Chainwit. — CC BY 4.0",
+    "facts": [
+      "Built between 1908 and 1909, it was considered one of the most impressive reinforced-concrete beam bridges in Europe at the time.",
+      "Its elegant Art Nouveau (Secession) design, with its distinctive curved lines and decorative details, makes it an architectural landmark."
+    ],
+    "neighborhood": "Fabric",
+    "difficulty": 2
+  },
+  {
+    "id": 17,
+    "name": "Mihai Viteazu Bridge (Podul Mihai Viteazu)",
+    "lat": 45.74852163144266,
+    "lng": 21.226045766003864,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Sta%C8%9Bia_Catedrala_Mitropolitan%C4%83.jpg",
+    "attribution": "Photo: Mihai mircea moise — CC BY-SA 4.0",
+    "facts": [
+      "A wooden bridge existed at this location before the mid-19th century and appears on an 1853 map of Timișoara under the name Bischofsbrücke (Bishop's Bridge).",
+      "The wooden bridge was reinforced in 1898 and replaced by the current reinforced-concrete bridge, which was opened in 1913.",
+      "Historically known as the Bishop's Bridge, it is officially named Podul Mitropolit Andrei Șaguna and is popularly known as Podul Mihai Viteazu."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  },
+  {
+    "id": 18,
+    "name": "Maria Bridge (Podul Maria)",
+    "lat": 45.74985073798616,
+    "lng": 21.220730637057304,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/0/05/Timi%C8%99oara%2C_podul_Traian%2C_1.jpeg",
+    "attribution": "Photo: Aisano — CC BY-SA 3.0 / 2.5 / 2.0 / 1.0",
+    "facts": [
+      "The current Podul Traian, also historically known as Podul Huniade or Podul de la Maria, was designed by architect Elemér Wachtel.",
+      "Its construction was initiated in the early 1910s and completed in 1917, replacing an earlier metal bridge.",
+      "It became an important crossing over the Bega Canal, connecting the historic Cetate area with Iosefin."
+    ],
+    "neighborhood": "Iosefin",
+    "difficulty": 2
+  },
+  {
+    "id": 19,
+    "name": "Bega River Promenade (Faleza Bega)",
+    "lat": 45.7501299442172,
+    "lng": 21.217905073492247,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/6/68/2009-08-05_-_panoramio.jpg",
+    "attribution": "Photo: Валерий Дед — CC BY 3.0",
+    "facts": [
+      "The Bega Canal was developed in the 18th century, starting in 1728, to control flooding and facilitate the transportation of goods, including timber.",
+      "It later became an important commercial waterway connecting Timișoara to the wider European river network.",
+      "Today, the riverbanks offer walking and cycling paths, green spaces and parks."
+    ],
+    "neighborhood": "Bega riverbanks",
+    "difficulty": 2
+  },
+  {
+    "id": 20,
+    "name": "Rose Park (Parcul Rozelor)",
+    "lat": 45.75043974037452,
+    "lng": 21.232469683747095,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/4/40/Parcul_Rozelor_Timisoara_-_roses.jpg",
+    "attribution": "Photo: Turbojet — CC BY-SA 4.0",
+    "facts": [
+      "The park was inaugurated on July 19, 1891, during the Industrial and Agricultural Exhibition in Timișoara.",
+      "By 1934, the park featured approximately 1,400 varieties of roses.",
+      "It also includes an open-air theatre, which hosts cultural events and festivals."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 21,
+    "name": "Botanical Park (Parcul Botanic)",
+    "lat": 45.760308547644335,
+    "lng": 21.225280039570208,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Botanischer_Garten-Temeswar.JPG/960px-Botanischer_Garten-Temeswar.JPG",
+    "attribution": "Photo: Eli.P — CC BY-SA 3.0 / 2.5 / 2.0 / 1.0",
+    "facts": [
+      "The first design for the park was created in 1966 by architect Silvia Grumeza.",
+      "The park began opening to visitors in 1986, with planting and development works continuing through 1990.",
+      "It covers approximately 9.8 hectares and contains themed botanical sections representing different geographical regions."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  },
+  {
+    "id": 22,
+    "name": "Anton von Scudier Central Park (Parcul Central „Anton von Scudier”)",
+    "lat": 45.75136670670819,
+    "lng": 21.220267241418536,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Timisoara%2C_Parcul_Scudier_2019.jpg",
+    "attribution": "Photo: Turbojet — CC BY-SA 4.0",
+    "facts": [
+      "Established in 1880 by order of General Anton von Scudier, the park was created on the site of a former military and civilian cemetery that had been closed in the 18th century.",
+      "The park's Aleea Personalităților (Avenue of Personalities) displays 24 bronze busts of important figures from Banat's history, including politicians, writers, musicians and artists."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  },
+  {
+    "id": 23,
+    "name": "Ion Creangă Children's Park (Parcul Copiilor Ion Creangă)",
+    "lat": 45.75311313685436,
+    "lng": 21.2372640567605,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Parcul_Copiilor_-_panoramio_%286%29.jpg",
+    "attribution": "Photo: Mister No — CC BY 3.0",
+    "facts": [
+      "The park's development began in 1858 under the name Franz Joseph Park, with the initial landscaping completed in 1891.",
+      "Throughout history, it was also known as Mihai Eminescu Park and Pioneers' Park.",
+      "Following a major modernization project, the park reopened in 2012 with themed playgrounds and recreational areas."
+    ],
+    "neighborhood": "Cetate",
+    "difficulty": 2
+  }
+]
