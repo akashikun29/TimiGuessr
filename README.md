@@ -36,10 +36,10 @@ The closer the guess, the more info unlocks on the reveal card:
 | Far / timeout | < 750 | name only + locked-story line |
 
 - Thresholds: `FULL_INFO_PTS`, `SOME_INFO_PTS` at top of `App.jsx` (`infoLevel()`).
-- Tier copy + slots: `RevealCard.jsx` — card is built as **separate units with stable class
-  names** (`reveal-card` with `data-level`, `reveal-badge`, `reveal-fact`, `reveal-meta`,
-  `reveal-teaser`, `reveal-score`) so Member C can style 3 color variants via CSS only.
-  These hooks match the "ghicite" selectors already present in C's `index.css`.
+- Tier copy + slots: `RevealCard.jsx` keeps stable class names (`reveal-card` with
+  `data-level`, `reveal-badge`, `reveal-fact`, `reveal-meta`, `reveal-teaser`,
+  `reveal-score`) as optional hooks. C's current `index.css` styles by structure, so the
+  classes are informational rather than required.
 - `firstSentence()` splits on `.!?` → **facts must be complete sentences, no "St."-type
   abbreviations** (rule for Member C). It also tolerates missing/empty facts.
 - `src/utils/facts.js` normalizes the dataset: `getFacts(spot)` returns `spot.facts[]`
@@ -61,8 +61,8 @@ The closer the guess, the more info unlocks on the reveal card:
 - Nickname save has a ref guard against double-submit; save is disabled while empty.
 - Broken photo URLs show a small "📷 Photo unavailable" placeholder instead of a blank/
   broken image (round + reveal).
-- Layout hooks align with C's CSS: `.round` (2-column photo/map grid), `.round-photo`,
-  `.round-map`, `.card`, `.reveal-card`, `.leaderboard`, and `input[type="text"]`.
+- Markup matches C's structural CSS: round header, photo and map stay **direct children**
+  of the round screen; facts render as `ul/li`; nickname input is `type="text"`.
 
 ---
 

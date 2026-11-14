@@ -23,7 +23,6 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
         <img
           src={spot.photo}
           alt={spot.name}
-          style={{ maxHeight: '40vh' }}
           onError={() => setPhotoFailed(true)}
         />
       )}
@@ -33,11 +32,11 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
         <>
           <p className="reveal-meta">Neighborhood: {spot.neighborhood}</p>
           {facts.length > 0 ? (
-            facts.map((fact, i) => (
-              <p className="reveal-fact" key={i}>
-                {fact}
-              </p>
-            ))
+            <ul className="reveal-facts">
+              {facts.map((fact, i) => (
+                <li key={i}>{fact}</li>
+              ))}
+            </ul>
           ) : (
             <p className="reveal-fact">A story about this place is coming soon.</p>
           )}
@@ -52,9 +51,9 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
 
       {infoLevel === 1 && (
         <>
-          <p className="reveal-fact">
-            {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
-          </p>
+          <ul className="reveal-facts">
+            <li>{firstSentence(facts[0]) || 'A story about this place is coming soon.'}</li>
+          </ul>
           <p className="reveal-badge">
             Partial story unlocked. A closer guess reveals the rest.
           </p>

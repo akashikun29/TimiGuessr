@@ -30,25 +30,14 @@ export default function GameRound({ spot, roundIndex, totalRounds, onConfirm }) 
       <p className="round-header" role="timer">
         Round {roundIndex + 1} of {totalRounds} · {seconds}s remaining
       </p>
-      {/* .round is Member C's 2-column grid hook: photo left, map right. */}
-      <div className="round">
-        <div className="round-photo">
-          {photoFailed ? (
-            <p className="photo-fallback">Photo unavailable.</p>
-          ) : (
-            /* B4: empty alt on purpose — alt text would reveal the answer */
-            <img
-              src={spot.photo}
-              alt=""
-              style={{ maxHeight: '50vh' }}
-              onError={() => setPhotoFailed(true)}
-            />
-          )}
-        </div>
-        <div className="round-map">
-          <GuessMap spot={spot} onConfirm={handleConfirm} />
-        </div>
-      </div>
+      {/* C's CSS makes this screen a grid with the photo and map as direct children. */}
+      {photoFailed ? (
+        <div className="photo-fallback">Photo unavailable.</div>
+      ) : (
+        /* B4: empty alt on purpose — alt text would reveal the answer */
+        <img src={spot.photo} alt="" onError={() => setPhotoFailed(true)} />
+      )}
+      <GuessMap spot={spot} onConfirm={handleConfirm} />
     </div>
   )
 }

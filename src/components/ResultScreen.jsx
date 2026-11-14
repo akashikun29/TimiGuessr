@@ -54,24 +54,25 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
         const level = g.infoLevel ?? 0
 
         return (
-          <div key={i} className="card tour-stop" data-level={level} style={{ marginBottom: '1rem' }}>
+          <div key={i} className="tour-stop" data-level={level} style={{ marginBottom: '1rem' }}>
             <strong>{g.spot.name}</strong>{' '}
             {level === 2 && g.spot.neighborhood && <em>({g.spot.neighborhood})</em>}
-            {level === 2 &&
-              facts.map((fact, j) => (
-                <p className="reveal-fact" key={j}>
-                  {fact}
-                </p>
-              ))}
+            {level === 2 && facts.length > 0 && (
+              <ul className="reveal-facts">
+                {facts.map((fact, j) => (
+                  <li key={j}>{fact}</li>
+                ))}
+              </ul>
+            )}
             {level === 1 && (
-              <p className="reveal-fact">
-                {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
-              </p>
+              <ul className="reveal-facts">
+                <li>{firstSentence(facts[0]) || 'A story about this place is coming soon.'}</li>
+              </ul>
             )}
             {level === 0 && (
               <p className="reveal-teaser">Story locked. A closer guess unlocks it.</p>
             )}
-            <img src={g.spot.photo} alt={g.spot.name} style={{ maxWidth: '300px' }} />
+            <img src={g.spot.photo} alt={g.spot.name} />
           </div>
         )
       })}
