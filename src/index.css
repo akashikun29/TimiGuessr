@@ -1,3 +1,27 @@
+/* Fonturile se încarcă de pe Google Fonts (fără să atingem index.html al lui B) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap");
+
+:root {
+  /* Culorile jocului: schimbi aici și se schimbă peste tot */
+  --culoare-accent: #C8553D;   /* terracotta */
+  --culoare-fundal: #F6EFE3;   /* crem */
+  --culoare-text: #2B2118;     /* maro închis */
+
+  --font-titlu: "Playfair Display", serif;
+  --font-text: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--culoare-fundal);
+  color: var(--culoare-text);
+  font-family: var(--font-text);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-titlu);
+}
+
 /* Member C owns this file (task C5) — placeholder styles only, keep it minimal. */
 body {
   font-family: system-ui, sans-serif;
