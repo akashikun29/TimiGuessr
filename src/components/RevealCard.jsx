@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { firstSentence, getFacts } from '../utils/facts.js'
 
+const fmt = (n) => n.toLocaleString('en-US')
+
 // B5 — Reveal card with proximity-gated info.
 // The closer the guess, the more the player learns about the spot:
 //   level 2 (close): name + neighborhood + full fact + photo credit
@@ -14,9 +16,9 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
 
   return (
     <div className="card reveal-card" data-level={infoLevel}>
-      <h2>Round reveal</h2>
+      <h2>Round result</h2>
       {photoFailed ? (
-        <p className="photo-fallback">📷 Photo unavailable</p>
+        <p className="photo-fallback">Photo unavailable.</p>
       ) : (
         <img
           src={spot.photo}
@@ -33,13 +35,13 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
           {facts.length > 0 ? (
             facts.map((fact, i) => (
               <p className="reveal-fact" key={i}>
-                💡 {fact}
+                {fact}
               </p>
             ))
           ) : (
-            <p className="reveal-fact">💡 A story about this place is coming soon.</p>
+            <p className="reveal-fact">A story about this place is coming soon.</p>
           )}
-          <p className="reveal-badge">🎯 Great guess — full story unlocked!</p>
+          <p className="reveal-badge">Full story unlocked.</p>
           {spot.attribution && (
             <p className="reveal-meta" style={{ fontStyle: 'italic' }}>
               {spot.attribution}
@@ -51,22 +53,24 @@ export default function RevealCard({ spot, guess, points, infoLevel, totalScore,
       {infoLevel === 1 && (
         <>
           <p className="reveal-fact">
-            💡 {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
+            {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
           </p>
-          <p className="reveal-badge">👍 Good guess — get closer next round to unlock the full story.</p>
+          <p className="reveal-badge">
+            Partial story unlocked. A closer guess reveals the rest.
+          </p>
         </>
       )}
 
       {infoLevel === 0 && (
         <p className="reveal-teaser">
           {guess
-            ? '😮 Too far away — the full story stays locked for now.'
-            : '⏱ Time ran out — no guess placed!'}
+            ? 'Too far away. The full story remains locked.'
+            : 'Time expired. No guess was placed.'}
         </p>
       )}
 
       <p className="reveal-score">
-        <strong>+{points} points</strong> — total: {totalScore}
+        <strong>+{fmt(points)} points</strong> · Total: {fmt(totalScore)}
       </p>
       <button onClick={onNext}>{isLastRound ? 'See results' : 'Next round'}</button>
     </div>

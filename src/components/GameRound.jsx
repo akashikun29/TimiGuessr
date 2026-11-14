@@ -28,13 +28,13 @@ export default function GameRound({ spot, roundIndex, totalRounds, onConfirm }) 
   return (
     <div>
       <p className="round-header" role="timer">
-        Round {roundIndex + 1}/{totalRounds} — ⏱ {seconds}s
+        Round {roundIndex + 1} of {totalRounds} · {seconds}s remaining
       </p>
       {/* .round is Member C's 2-column grid hook: photo left, map right. */}
       <div className="round">
         <div className="round-photo">
           {photoFailed ? (
-            <p className="photo-fallback">📷 Photo unavailable</p>
+            <p className="photo-fallback">Photo unavailable.</p>
           ) : (
             /* B4: empty alt on purpose — alt text would reveal the answer */
             <img

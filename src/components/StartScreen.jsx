@@ -6,7 +6,7 @@ export default function StartScreen({ onStart }) {
     <div className="card start-screen">
       <h1>TimiGuessr</h1>
       <p>Tourists don't learn a city from guides — they learn it by playing.</p>
-      <button onClick={onStart}>Play</button>
+      <button onClick={onStart}>Start game</button>
       <Leaderboard />
     </div>
   )

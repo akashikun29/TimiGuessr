@@ -26,14 +26,14 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
 
   return (
     <div className="card results-screen">
-      <h2>Game over!</h2>
+      <h2>Game complete</h2>
       <p>
         <strong>
           Total: {fmt(totalScore)} / {fmt(totalPossible)}
         </strong>
       </p>
 
-      <h4>Your rounds:</h4>
+      <h4>Round breakdown</h4>
       {guesses.length === 0 ? (
         <p>No rounds were played.</p>
       ) : (
@@ -47,8 +47,8 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
       )}
 
       {/* Earned-info recap: each round shows only what that guess unlocked. */}
-      <h4>🏛️ Your tour of Timișoara</h4>
-      <p>You keep the stories you earned — the rest stay locked.</p>
+      <h4>Your Timișoara tour</h4>
+      <p>Stories are unlocked by guess accuracy.</p>
       {guesses.map((g, i) => {
         const facts = getFacts(g.spot)
         const level = g.infoLevel ?? 0
@@ -60,16 +60,16 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
             {level === 2 &&
               facts.map((fact, j) => (
                 <p className="reveal-fact" key={j}>
-                  💡 {fact}
+                  {fact}
                 </p>
               ))}
             {level === 1 && (
               <p className="reveal-fact">
-                💡 {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
+                {firstSentence(facts[0]) || 'A story about this place is coming soon.'}
               </p>
             )}
             {level === 0 && (
-              <p className="reveal-teaser">🔒 Story not unlocked — get closer next time.</p>
+              <p className="reveal-teaser">Story locked. A closer guess unlocks it.</p>
             )}
             <img src={g.spot.photo} alt={g.spot.name} style={{ maxWidth: '300px' }} />
           </div>
@@ -96,7 +96,7 @@ export default function ResultScreen({ totalScore, totalPossible, guesses, onPla
           </button>
         </form>
       ) : (
-        <p>Saved! ✔</p>
+        <p>Score saved.</p>
       )}
 
       <Leaderboard />

@@ -31,9 +31,9 @@ The closer the guess, the more info unlocks on the reveal card:
 
 | Tier | Points (≈distance) | Shows |
 |---|---|---|
-| 🎯 close | ≥ 3000 (~≤450 m) | name + neighborhood + **all facts** + attribution |
-| 👍 medium | ≥ 750 (~≤2.6 km) | name + **first sentence** of the first fact |
-| 😮 far / timeout | < 750 | name only + teaser line |
+| Close | ≥ 3000 (~≤450 m) | name + neighborhood + **all facts** + attribution |
+| Medium | ≥ 750 (~≤2.6 km) | name + **first sentence** of the first fact |
+| Far / timeout | < 750 | name only + locked-story line |
 
 - Thresholds: `FULL_INFO_PTS`, `SOME_INFO_PTS` at top of `App.jsx` (`infoLevel()`).
 - Tier copy + slots: `RevealCard.jsx` — card is built as **separate units with stable class

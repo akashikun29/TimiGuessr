@@ -46,9 +46,9 @@ export default function Leaderboard() {
 
   return (
     <div className="leaderboard">
-      <h3>🏆 Leaderboard</h3>
+      <h3>Leaderboard</h3>
       {scores.length === 0 ? (
-        <p>No scores yet — be the first!</p>
+        <p>No scores yet.</p>
       ) : (
         <ol>
           {scores.map((entry, i) => (
