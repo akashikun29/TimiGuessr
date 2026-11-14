@@ -1,130 +1,211 @@
-# TimiGuessr — dev notes (Member B)
+# TimiGuessr
 
-GeoGuessr-style game about Timișoara for UniHack 2026 (track: Civicore).
-React + Vite, react-leaflet, static `spots.json`, localStorage leaderboard.
-Full team plan: `PLAN.md` (kept outside the repo, in the parent folder).
+A GeoGuessr-style game set in Timișoara, built for **UniHack 2026** (Civicore track).
+Players are shown a photo of a real location in the city and must place a pin on the map.
+Each round then reveals the true location, awards points based on distance, and unlocks a
+short story about the place.
 
-**Repo:** https://github.com/persolly/TimiGuessr.git
-**Branch:** `b1-screen-state-machine` (B pushes branches, A merges `main`)
+The result is a five-round game that works both as a challenge and as a compact,
+self-earned tour of Timișoara.
 
----
-
-## Status: all B tasks (B1–B7) are DONE; C's design + data are integrated
-
-C has delivered `src/index.css` and a 23-spot `src/data/spots.json` (pulled into this
-branch). B supports both the `fact: string` schema from `PLAN.md` and the delivered
-`facts: string[]` array via `src/utils/facts.js` (no data edits needed).
-
-| Task | Where | What |
-|---|---|---|
-| B1 | `src/App.jsx` | Screen state machine: one state object `{screen: 'start'\|'round'\|'reveal'\|'results', roundIndex, totalScore, guesses[], rounds[]}`. Functions: `startGame()`, `handleRoundConfirm(guess)`, `nextRound()`. |
-| B2 | `src/App.jsx` | `pickRounds()` — Fisher–Yates shuffle of spots, first 5 become the game. |
-| B3 | `src/hooks/useTimer.js` | `useTimer(60)` → `{seconds, isDone}`. Timeout auto-confirms with `null` guess → 0 points. `GameRound` has `key={roundIndex}` in App so the timer resets each round. |
-| B4 | `src/components/GameRound.jsx` | Photo with **empty alt** (alt would reveal the answer), "Round X/5", mounts `<GuessMap>`. |
-| B5 | `src/components/RevealCard.jsx` | Info card after each guess — now with **proximity-gated info** (see below). |
-| B6 | `src/components/ResultScreen.jsx` | Total /25,000, per-round breakdown, nickname input (saves once), **earned-info recap** (same tier per round as its reveal). |
-| B7 | `src/components/Leaderboard.jsx` | `localStorage` key `"timiguessr-scores"`, JSON `[{name, score, date}]`, top 10 desc. Exported helpers: `loadScores()`, `addScore(name, score)`. Rendered on start + results screens. |
-
-## Feature: proximity-gated learning (B5/B6)
-
-The closer the guess, the more info unlocks on the reveal card:
-
-| Tier | Points (≈distance) | Shows |
-|---|---|---|
-| Close | ≥ 3000 (~≤450 m) | name + neighborhood + **all facts** + attribution |
-| Medium | ≥ 750 (~≤2.6 km) | name + **first sentence** of the first fact |
-| Far / timeout | < 750 | name only + locked-story line |
-
-- Thresholds: `FULL_INFO_PTS`, `SOME_INFO_PTS` at top of `App.jsx` (`infoLevel()`).
-- Tier copy + slots: `RevealCard.jsx` keeps stable class names (`reveal-card` with
-  `data-level`, `reveal-badge`, `reveal-fact`, `reveal-meta`, `reveal-teaser`,
-  `reveal-score`) as optional hooks. C's current `index.css` styles by structure, so the
-  classes are informational rather than required.
-- `firstSentence()` splits on `.!?` → **facts must be complete sentences, no "St."-type
-  abbreviations** (rule for Member C). It also tolerates missing/empty facts.
-- `src/utils/facts.js` normalizes the dataset: `getFacts(spot)` returns `spot.facts[]`
-  when present, otherwise falls back to `[spot.fact]`. C's current data uses `facts[]`.
-- Results screen shows an **earned-info recap**: every round keeps the same tier it had on
-  its reveal card (full facts / first sentence / locked). Nothing unearned is given away.
-
-## Robustness (already handled in B's code)
-
-- A round can only be completed **once** — a late map click, a timer callback and a
-  double-click cannot add duplicate guesses or inflate the score.
-- Double-clicking "Next round" cannot skip a round.
-- Round count adapts to `spots.json`: `TOTAL_ROUNDS = 5` is the target, but a smaller
-  dataset plays the rounds it has instead of crashing. Empty dataset → Play is a no-op
-  with a console warning.
-- Timer stops its interval at 0 and resets per round (`key={roundIndex}`).
-- Leaderboard ignores malformed stored entries and survives `localStorage` being
-  unavailable (private mode / quota).
-- Nickname save has a ref guard against double-submit; save is disabled while empty.
-- Broken photo URLs show a small "📷 Photo unavailable" placeholder instead of a blank/
-  broken image (round + reveal).
-- Markup matches C's structural CSS: round header, photo and map stay **direct children**
-  of the round screen; facts render as `ul/li`; nickname input is `type="text"`.
+> Tourists don't learn a city from guides — they learn it by playing.
 
 ---
 
-## TEMPORARY test mocks — local only, gitignored (NOT in the repo)
+## Overview
 
-C's `src/index.css` and `src/data/spots.json` are now real, committed files. Only A's two
-files are still local mocks, listed in `.gitignore` under "TEMPORARY test mocks":
+TimiGuessr turns the city into a playable map. Instead of reading a guide, the player
+guesses where each photo was taken. Accuracy determines both the score and how much of the
+location's story is revealed:
 
-| Path | Owner | Interface B codes against |
-|---|---|---|
-| `src/components/GuessMap.jsx` | A | `<GuessMap spot={spot} onConfirm={(coords) => ...} />`, coords = `{lat, lng}` |
-| `src/utils/score.js` | A | `haversine(lat1,lng1,lat2,lng2)` → meters; `roundScore(guess, truth)` → max 5000 via `5000·e^(-m/1000)` |
+- A close guess unlocks the full story.
+- A medium guess unlocks the first sentence.
+- A far guess or a timeout keeps the story locked.
 
-⚠️ Consequence: a fresh clone does **not** run (`App.jsx` imports these two files).
-When A delivers them, delete the mocks, remove their lines from `.gitignore`, and commit
-the real files.
+Nothing is given away for free — the final results screen only shows the information the
+player actually earned.
 
-The mock `GuessMap` has 3 dev buttons mapping to the 3 info tiers: very close (~100 m),
-mid (~1.3 km), far (~25 km).
+---
 
-## Tuning constants (B's files)
+## Gameplay
 
-- `TOTAL_ROUNDS = 5`, `ROUND_SECONDS = 60` (`App.jsx`, `GameRound.jsx`)
-- `FULL_INFO_PTS = 3000`, `SOME_INFO_PTS = 750` (`App.jsx`)
+1. **Start** — begin a game from the start screen.
+2. **Guess** — a photo is shown for 60 seconds. Click the map to place a pin, then confirm.
+3. **Reveal** — the true location is shown, points are awarded, and the earned part of the
+   story is unlocked.
+4. **Repeat** — five rounds, each with a new location.
+5. **Results** — total score out of 25,000, a per-round breakdown, an earned-info recap,
+   and the option to save the score to the leaderboard.
 
-## Integration checklist (when teammates deliver)
+If the timer reaches zero, the round is submitted automatically with no guess and scores
+zero points.
 
-1. **C's `spots.json`** → ✅ delivered (23 spots, `facts: string[]`) and integrated via
-   `src/utils/facts.js`. Only rule going forward: complete-sentence facts (see above).
-2. **A's `score.js`** → confirm max points is 5000 and decay /1000; if different, retune
-   `FULL_INFO_PTS`/`SOME_INFO_PTS` (misclassification would be silent). Alternative: switch
-   `infoLevel()` to distance-based via A's `haversine`.
-3. **A's `GuessMap`** → planned change: reveal screen must keep the map mounted (A6 draws
-   the guess→truth polyline there; current screen-swap unmounts it). Agreed new prop:
-   `<GuessMap spot onConfirm reveal={{guess}} />` — discuss with A **early**.
+---
 
-## B-only backlog ideas (not started)
+## Scoring
 
-1. Difficulty modes (timer 90/60/30 s; filter by C's `difficulty` field)
-2. Round progress HUD (5 dots/chips + timer red pulse under 10 s)
-3. Streak bonus (two ≥3000-pt rounds in a row → +250, applied in App)
-4. Remember nickname in localStorage
-5. "You're #N!" rank display after saving score
-6. Share-result card (Web Share API / clipboard) — plan optional task
-7. Personal stats (games played, best score) on start screen
-8. "How to play" modal (low priority)
-9. Sound effects (WebAudio beeps) — plan optional, needs C's sign-off
-10. RO/EN toggle — UI strings are B's, but needs C to add both fact languages
-- NOT B: route map on results screen (needs Leaflet = A's files)
+Points are based on the distance between the guess and the real location:
 
-## How to run
-
-```bash
-npm install   # already done locally
-npm run dev   # http://localhost:5173
+```js
+distance = haversine(guess, truth)          // meters
+points   = Math.round(5000 * Math.exp(-distance / 1000))
 ```
 
-Testing tips: dev buttons in mock GuessMap drive all 3 info tiers; reset leaderboard with
-`localStorage.removeItem('timiguessr-scores')` in the browser console; timer-timeout tier is
-tested by waiting 60 s.
+- Maximum per round: **5,000**
+- Maximum per game: **25,000**
+- The score decays exponentially with distance
 
-## Ownership rules (from PLAN.md — respect these)
+The same score thresholds drive the learning tiers:
 
-A never touches `App.jsx` state; B never touches `score.js` math; C never touches
-component logic. Need something from another member's file → ask for a prop/callback.
+| Tier | Points | Approx. distance | Story shown |
+|---|---|---|---|
+| Close | ≥ 3000 | ≤ 450 m | Full story, neighborhood, photo credit |
+| Medium | ≥ 750 | ≤ 2.6 km | First sentence only |
+| Far / timeout | < 750 | > 2.6 km | Story locked |
+
+---
+
+## Features
+
+- 23 curated Timișoara locations across multiple neighborhoods
+- Five-round games built from a shuffled deck of locations
+- 60-second round timer with automatic timeout submission
+- Interactive map with distance-based scoring
+- Proximity-gated stories: the closer the guess, the more you learn
+- Results recap limited to the information actually unlocked
+- Persistent top-10 leaderboard in `localStorage`
+- Responsive layout: photo and map side by side on desktop, stacked on mobile
+- No backend, no API keys, no runtime data fetching
+
+---
+
+## Tech stack
+
+| Technology | Version | Role |
+|---|---|---|
+| React | 18 | UI and state management |
+| Vite | 5 | Development server and production build |
+| react-leaflet | 4 | Map components |
+| Leaflet | 1.9 | Mapping engine |
+| OpenStreetMap tiles | — | Free map imagery |
+| CSS | — | Custom responsive design system |
+| `localStorage` | — | Client-side leaderboard persistence |
+| Static JSON | — | Location dataset |
+
+The application is entirely client-side. The location data is bundled at build time, and
+the leaderboard lives in the browser.
+
+---
+
+## Getting started
+
+### Requirements
+
+- Node.js 18 or newer
+- npm
+
+### Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL printed by Vite (by default <http://localhost:5173>).
+
+### Production build
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## Project structure
+
+```text
+src/
+  App.jsx                    Screen state machine and game flow
+  main.jsx                   React entry point
+  index.css                  Design system and responsive layout
+  components/
+    StartScreen.jsx          Landing screen
+    GameRound.jsx            Photo, timer and map for one round
+    GuessMap.jsx             Interactive map and pin placement
+    RevealCard.jsx           Per-round result and unlocked story
+    ResultScreen.jsx         Final score, breakdown and recap
+    Leaderboard.jsx          Top-10 leaderboard and storage helpers
+  hooks/
+    useTimer.js              Countdown hook
+  utils/
+    score.js                 Haversine distance and scoring
+    facts.js                 Story normalization helpers
+  data/
+    spots.json               Curated location dataset
+```
+
+### Application flow
+
+`App.jsx` holds a single state object and moves through four screens:
+
+```text
+start -> round -> reveal -> round -> ... -> results -> start
+```
+
+The current round is keyed by its index so the timer resets cleanly between rounds.
+
+---
+
+## Location data
+
+Each entry in `src/data/spots.json` follows this shape:
+
+```json
+{
+  "id": 1,
+  "name": "Union Square (Piața Unirii)",
+  "lat": 45.7576,
+  "lng": 21.2290,
+  "photo": "https://upload.wikimedia.org/...",
+  "attribution": "Photo: Author — CC BY-SA 4.0",
+  "facts": [
+    "First complete sentence about the place.",
+    "A second fact."
+  ],
+  "neighborhood": "Cetate",
+  "difficulty": 1
+}
+```
+
+Stories are stored as an array of complete sentences. The `facts.js` helper also accepts
+the older single-string `fact` field, so both formats render correctly.
+
+Photos are hosted on Wikimedia Commons. Each image keeps its author and license in the
+`attribution` field.
+
+---
+
+## Leaderboard
+
+Scores are stored in `localStorage` under the key `timiguessr-scores`:
+
+```json
+[{ "name": "Player", "score": 18450, "date": "2026-11-14T12:00:00.000Z" }]
+```
+
+Only the top 10 scores are kept, sorted in descending order. Malformed or unavailable
+storage fails gracefully without breaking the results screen.
+
+---
+
+## Credits
+
+Built at **UniHack 2026** by a three-person team:
+
+- Map, distance calculation and scoring
+- Game flow, screens and leaderboard
+- Data curation, visual design and presentation
+
+Photography is sourced from Wikimedia Commons under the licenses recorded per location in
+`spots.json`.
