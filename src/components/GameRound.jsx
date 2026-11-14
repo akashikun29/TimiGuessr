@@ -1,19 +1,27 @@
-// B — Game round: photo + timer + guess map.
-// PLACEHOLDER for B1 testing only.
-// TODO(B3): replace dev buttons with useTimer(60) auto-confirm.
-// TODO(B4): show the real spot photo + "Round X/5" from spots.json (needs B2).
-// Member A's <GuessMap spot={spot} onConfirm={...} /> mounts here in B2.
-export default function GameRound({ roundIndex, totalRounds, onConfirm }) {
+import { useEffect } from 'react'
+import useTimer from '../hooks/useTimer.js'
+import GuessMap from './GuessMap.jsx' // TEMP: Member A owns the real GuessMap
+
+const ROUND_SECONDS = 60
+
+// B3 + B4 — Game round: photo + 60s timer + guess map.
+// When the timer hits 0 the round auto-confirms with a null guess → 0 points.
+export default function GameRound({ spot, roundIndex, totalRounds, onConfirm }) {
+  const { seconds, isDone } = useTimer(ROUND_SECONDS)
+
+  // Auto-confirm on timeout (B3). Effect so we don't call onConfirm during render.
+  useEffect(() => {
+    if (isDone) onConfirm(null)
+  }, [isDone]) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div>
       <p>
-        Round {roundIndex + 1}/{totalRounds}
+        Round {roundIndex + 1}/{totalRounds} — ⏱ {seconds}s
       </p>
-      <p>[ photo placeholder ]</p>
-      <p>[ GuessMap placeholder — Member A ]</p>
-      {/* Dev-only buttons to drive the state machine until A3/B3 land: */}
-      <button onClick={() => onConfirm(500)}>dev: confirm guess (+500)</button>
-      <button onClick={() => onConfirm(0)}>dev: timer ran out (0 pts)</button>
+      {/* B4: empty alt on purpose — alt text would reveal the answer */}
+      <img src={spot.photo} alt="" style={{ maxWidth: '100%', maxHeight: '50vh' }} />
+      <GuessMap spot={spot} onConfirm={onConfirm} />
     </div>
   )
 }

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Piața Unirii (TEMP)",
+    "lat": 45.754,
+    "lng": 21.2259,
+    "photo": "https://picsum.photos/seed/timi1/1200/800",
+    "attribution": "TEMP photo — Member C adds real credit",
+    "fact": "TEMP fact #1 — Member C replaces with a real fun fact.",
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 2,
+    "name": "Piața Victoriei (TEMP)",
+    "lat": 45.7494,
+    "lng": 21.2242,
+    "photo": "https://picsum.photos/seed/timi2/1200/800",
+    "attribution": "TEMP photo — Member C adds real credit",
+    "fact": "TEMP fact #2 — Member C replaces with a real fun fact.",
+    "neighborhood": "Cetate",
+    "difficulty": 1
+  },
+  {
+    "id": 3,
+    "name": "Fabric district (TEMP)",
+    "lat": 45.753,
+    "lng": 21.238,
+    "photo": "https://picsum.photos/seed/timi3/1200/800",
+    "attribution": "TEMP photo — Member C adds real credit",
+    "fact": "TEMP fact #3 — Member C replaces with a real fun fact.",
+    "neighborhood": "Fabric",
+    "difficulty": 2
+  },
+  {
+    "id": 4,
+    "name": "Iosefin district (TEMP)",
+    "lat": 45.745,
+    "lng": 21.216,
+    "photo": "https://picsum.photos/seed/timi4/1200/800",
+    "attribution": "TEMP photo — Member C adds real credit",
+    "fact": "TEMP fact #4 — Member C replaces with a real fun fact.",
+    "neighborhood": "Iosefin",
+    "difficulty": 2
+  },
+  {
+    "id": 5,
+    "name": "Bega riverfront (TEMP)",
+    "lat": 45.747,
+    "lng": 21.2295,
+    "photo": "https://picsum.photos/seed/timi5/1200/800",
+    "attribution": "TEMP photo — Member C adds real credit",
+    "fact": "TEMP fact #5 — Member C replaces with a real fun fact.",
+    "neighborhood": "Bega",
+    "difficulty": 1
+  }
+]
