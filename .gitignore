@@ -4,7 +4,6 @@ dist/
 .DS_Store
 
 # TEMPORARY test mocks (not B's deliverables) — kept local only.
-# When Members A/C deliver the real files, remove these lines and commit theirs.
+# When Member A delivers the real files, remove these lines and commit theirs.
 src/components/GuessMap.jsx
 src/utils/score.js
-src/data/spots.json

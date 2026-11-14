@@ -9,7 +9,11 @@ Full team plan: `PLAN.md` (kept outside the repo, in the parent folder).
 
 ---
 
-## Status: all B tasks (B1–B7) are DONE and pushed
+## Status: all B tasks (B1–B7) are DONE; C's design + data are integrated
+
+C has delivered `src/index.css` and a 23-spot `src/data/spots.json` (pulled into this
+branch). B supports both the `fact: string` schema from `PLAN.md` and the delivered
+`facts: string[]` array via `src/utils/facts.js` (no data edits needed).
 
 | Task | Where | What |
 |---|---|---|
@@ -18,7 +22,7 @@ Full team plan: `PLAN.md` (kept outside the repo, in the parent folder).
 | B3 | `src/hooks/useTimer.js` | `useTimer(60)` → `{seconds, isDone}`. Timeout auto-confirms with `null` guess → 0 points. `GameRound` has `key={roundIndex}` in App so the timer resets each round. |
 | B4 | `src/components/GameRound.jsx` | Photo with **empty alt** (alt would reveal the answer), "Round X/5", mounts `<GuessMap>`. |
 | B5 | `src/components/RevealCard.jsx` | Info card after each guess — now with **proximity-gated info** (see below). |
-| B6 | `src/components/ResultScreen.jsx` | Total /25,000, per-round breakdown, nickname input (saves once), full-tour recap. |
+| B6 | `src/components/ResultScreen.jsx` | Total /25,000, per-round breakdown, nickname input (saves once), **earned-info recap** (same tier per round as its reveal). |
 | B7 | `src/components/Leaderboard.jsx` | `localStorage` key `"timiguessr-scores"`, JSON `[{name, score, date}]`, top 10 desc. Exported helpers: `loadScores()`, `addScore(name, score)`. Rendered on start + results screens. |
 
 ## Feature: proximity-gated learning (B5/B6)
@@ -27,34 +31,54 @@ The closer the guess, the more info unlocks on the reveal card:
 
 | Tier | Points (≈distance) | Shows |
 |---|---|---|
-| 🎯 close | ≥ 3000 (~≤450 m) | name + neighborhood + **full fact** + attribution |
-| 👍 medium | ≥ 750 (~≤2.6 km) | name + **first sentence** of fact |
+| 🎯 close | ≥ 3000 (~≤450 m) | name + neighborhood + **all facts** + attribution |
+| 👍 medium | ≥ 750 (~≤2.6 km) | name + **first sentence** of the first fact |
 | 😮 far / timeout | < 750 | name only + teaser line |
 
 - Thresholds: `FULL_INFO_PTS`, `SOME_INFO_PTS` at top of `App.jsx` (`infoLevel()`).
 - Tier copy + slots: `RevealCard.jsx` — card is built as **separate units with stable class
   names** (`reveal-card` with `data-level`, `reveal-badge`, `reveal-fact`, `reveal-meta`,
   `reveal-teaser`, `reveal-score`) so Member C can style 3 color variants via CSS only.
+  These hooks match the "ghicite" selectors already present in C's `index.css`.
 - `firstSentence()` splits on `.!?` → **facts must be complete sentences, no "St."-type
-  abbreviations** (rule for Member C).
-- Results screen always shows the **full tour recap** (all facts, neighborhoods, photos,
-  combined credits line) — nothing is lost, just earned.
+  abbreviations** (rule for Member C). It also tolerates missing/empty facts.
+- `src/utils/facts.js` normalizes the dataset: `getFacts(spot)` returns `spot.facts[]`
+  when present, otherwise falls back to `[spot.fact]`. C's current data uses `facts[]`.
+- Results screen shows an **earned-info recap**: every round keeps the same tier it had on
+  its reveal card (full facts / first sentence / locked). Nothing unearned is given away.
+
+## Robustness (already handled in B's code)
+
+- A round can only be completed **once** — a late map click, a timer callback and a
+  double-click cannot add duplicate guesses or inflate the score.
+- Double-clicking "Next round" cannot skip a round.
+- Round count adapts to `spots.json`: `TOTAL_ROUNDS = 5` is the target, but a smaller
+  dataset plays the rounds it has instead of crashing. Empty dataset → Play is a no-op
+  with a console warning.
+- Timer stops its interval at 0 and resets per round (`key={roundIndex}`).
+- Leaderboard ignores malformed stored entries and survives `localStorage` being
+  unavailable (private mode / quota).
+- Nickname save has a ref guard against double-submit; save is disabled while empty.
+- Broken photo URLs show a small "📷 Photo unavailable" placeholder instead of a blank/
+  broken image (round + reveal).
+- Layout hooks align with C's CSS: `.round` (2-column photo/map grid), `.round-photo`,
+  `.round-map`, `.card`, `.reveal-card`, `.leaderboard`, and `input[type="text"]`.
 
 ---
 
 ## TEMPORARY test mocks — local only, gitignored (NOT in the repo)
 
-The repo intentionally contains only B-owned files. These exist locally so B can test
-end-to-end; they are listed in `.gitignore` under "TEMPORARY test mocks":
+C's `src/index.css` and `src/data/spots.json` are now real, committed files. Only A's two
+files are still local mocks, listed in `.gitignore` under "TEMPORARY test mocks":
 
 | Path | Owner | Interface B codes against |
 |---|---|---|
 | `src/components/GuessMap.jsx` | A | `<GuessMap spot={spot} onConfirm={(coords) => ...} />`, coords = `{lat, lng}` |
 | `src/utils/score.js` | A | `haversine(lat1,lng1,lat2,lng2)` → meters; `roundScore(guess, truth)` → max 5000 via `5000·e^(-m/1000)` |
-| `src/data/spots.json` | C | `{id, name, lat, lng, photo, attribution, fact, neighborhood, difficulty}` |
 
-⚠️ Consequence: a fresh clone does **not** run (`App.jsx` imports these). Teammates get the
-3 files via chat until the real ones land; then delete mocks, un-ignore, commit real files.
+⚠️ Consequence: a fresh clone does **not** run (`App.jsx` imports these two files).
+When A delivers them, delete the mocks, remove their lines from `.gitignore`, and commit
+the real files.
 
 The mock `GuessMap` has 3 dev buttons mapping to the 3 info tiers: very close (~100 m),
 mid (~1.3 km), far (~25 km).
@@ -66,7 +90,8 @@ mid (~1.3 km), far (~25 km).
 
 ## Integration checklist (when teammates deliver)
 
-1. **C's `spots.json`** → no code change. Only rule: complete-sentence facts (see above).
+1. **C's `spots.json`** → ✅ delivered (23 spots, `facts: string[]`) and integrated via
+   `src/utils/facts.js`. Only rule going forward: complete-sentence facts (see above).
 2. **A's `score.js`** → confirm max points is 5000 and decay /1000; if different, retune
    `FULL_INFO_PTS`/`SOME_INFO_PTS` (misclassification would be silent). Alternative: switch
    `infoLevel()` to distance-based via A's `haversine`.
@@ -83,11 +108,9 @@ mid (~1.3 km), far (~25 km).
 5. "You're #N!" rank display after saving score
 6. Share-result card (Web Share API / clipboard) — plan optional task
 7. Personal stats (games played, best score) on start screen
-8. Photo `onError` fallback so one bad URL never breaks a round
-9. Mobile-first layout skeleton in `index.css` (stack photo above map < 700px)
-10. "How to play" modal (low priority)
-11. Sound effects (WebAudio beeps) — plan optional, needs C's sign-off
-12. RO/EN toggle — UI strings are B's, but needs C to add both fact languages
+8. "How to play" modal (low priority)
+9. Sound effects (WebAudio beeps) — plan optional, needs C's sign-off
+10. RO/EN toggle — UI strings are B's, but needs C to add both fact languages
 - NOT B: route map on results screen (needs Leaflet = A's files)
 
 ## How to run

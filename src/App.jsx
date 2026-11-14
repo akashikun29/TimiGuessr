@@ -45,12 +45,19 @@ export default function App() {
   })
 
   function startGame() {
+    const rounds = pickRounds(spotsData)
+    if (rounds.length === 0) {
+      // Member C's dataset is empty or missing — never crash on Play.
+      console.warn('TimiGuessr: no spots available in spots.json.')
+      return
+    }
+
     setState({
       screen: 'round',
       roundIndex: 0,
       totalScore: 0,
       guesses: [],
-      rounds: pickRounds(spotsData),
+      rounds,
     })
   }
 
@@ -58,7 +65,12 @@ export default function App() {
   // timer hits 0 (guess = null → 0 points).
   function handleRoundConfirm(guess) {
     setState((prev) => {
+      // Ignore a second submission from a late map click or a timer callback.
+      // A round can only be completed once.
+      if (prev.screen !== 'round') return prev
+
       const spot = prev.rounds[prev.roundIndex]
+      if (!spot) return prev
       const points = roundScore(guess, spot)
       return {
         ...prev,
@@ -74,8 +86,11 @@ export default function App() {
 
   function nextRound() {
     setState((prev) => {
+      // Guard against a double-click on "Next round" skipping a round.
+      if (prev.screen !== 'reveal') return prev
+
       const next = prev.roundIndex + 1
-      if (next >= TOTAL_ROUNDS) {
+      if (next >= prev.rounds.length) {
         return { ...prev, screen: 'results' }
       }
       return { ...prev, screen: 'round', roundIndex: next }
@@ -90,7 +105,7 @@ export default function App() {
           key={state.roundIndex} // remount per round → timer resets (B3)
           spot={spot}
           roundIndex={state.roundIndex}
-          totalRounds={TOTAL_ROUNDS}
+          totalRounds={state.rounds.length}
           onConfirm={handleRoundConfirm}
         />
       )
@@ -104,7 +119,7 @@ export default function App() {
           points={last.points}
           infoLevel={last.infoLevel}
           totalScore={state.totalScore}
-          isLastRound={state.roundIndex === TOTAL_ROUNDS - 1}
+          isLastRound={state.roundIndex >= state.rounds.length - 1}
           onNext={nextRound}
         />
       )
@@ -113,7 +128,7 @@ export default function App() {
       return (
         <ResultScreen
           totalScore={state.totalScore}
-          totalPossible={TOTAL_ROUNDS * 5000}
+          totalPossible={state.rounds.length * 5000}
           guesses={state.guesses}
           onPlayAgain={startGame}
         />

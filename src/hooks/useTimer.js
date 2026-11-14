@@ -10,7 +10,13 @@ export default function useTimer(totalSeconds) {
   useEffect(() => {
     setSeconds(totalSeconds)
     const id = setInterval(() => {
-      setSeconds((s) => (s <= 0 ? 0 : s - 1))
+      setSeconds((s) => {
+        if (s <= 1) {
+          clearInterval(id)
+          return 0
+        }
+        return s - 1
+      })
     }, 1000)
     return () => clearInterval(id)
   }, [totalSeconds])
